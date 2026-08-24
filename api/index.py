@@ -10,6 +10,7 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8")
 
 app = Flask(__name__)
+BASE_API_URL = "https://www,qixiaoyuan.site"
 app.debug = False
 app.json.ensure_ascii = False
 
@@ -231,7 +232,7 @@ def get_search(value, client_page=1):
         has_more = client_page < total_client_pages
 
         # 获取API URL用于构建封面链接
-        api_url = request.host_url.rstrip("/")
+        api_url = BASE_API_URL
 
         # 构建符合文档要求的搜索结果格式
         results = []
@@ -282,8 +283,7 @@ def get_album_info(item_id: int, impl="html", url=["18comic.vip"]):
         photo_detail = client.get_photo_detail(item_id)
         total_pages = len(photo_detail)
 
-        api_url = request.host_url.rstrip("/")
-        cover_url = f"{api_url}/album/{item_id}/cover"
+        cover_url = f"{BASE_API_URL}/album/{item_id}/cover"
 
         return jsonify(
             {
@@ -328,7 +328,7 @@ def get_photo_chapter(item_id: int, chapter: int = 1):
 
         images = [
             {
-                "url": f"{api_url}/image/proxy?url={api_url}/photo/{photo_id}/{photo_id}_{page_num}.jpg"
+                "url": f"{BASE_API_URL}/image/proxy?url={api_url}/photo/{photo_id}/{photo_id}_{page_num}.jpg"
             }
             for page_num in range(1, len(photo_detail) + 1)
         ]
