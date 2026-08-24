@@ -1,3 +1,4 @@
 Flask==3.0.3
 requests==2.28.0
 jmcomic==2.6.18
+gunicorn==21.2.0
